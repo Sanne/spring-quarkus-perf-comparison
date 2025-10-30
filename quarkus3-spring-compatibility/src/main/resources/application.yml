@@ -13,3 +13,6 @@ quarkus:
       password: fruits
       jdbc:
         url: jdbc:postgresql://localhost:5432/fruits
+    hibernate-orm:
+      sql-load-script: ""
+

@@ -23,14 +23,14 @@ import io.restassured.http.ContentType;
 @QuarkusIntegrationTest
 @TestMethodOrder(OrderAnnotation.class)
 public class FruitControllerIT {
-	private static final int DEFAULT_ORDER = 1;
+    private static final int DEFAULT_ORDER = 1;
 
-	@Test
-	@Order(DEFAULT_ORDER)
-	public void getFruitNotFound() {
-		get("/fruits/Watermelon").then()
-			.statusCode(Status.NOT_FOUND.getStatusCode());
-	}
+    @Test
+    @Order(DEFAULT_ORDER)
+    public void getFruitNotFound() {
+        get("/fruits/Watermelon").then()
+                .statusCode(Status.NOT_FOUND.getStatusCode());
+    }
 
     @Test
     @Order(DEFAULT_ORDER + 1)
@@ -54,16 +54,16 @@ public class FruitControllerIT {
     }
 
 
-	@Test
-	@Order(DEFAULT_ORDER+2)
-	public void getFruitFound() {
-		get("/fruits/Pomelo").then()
-			.statusCode(Status.OK.getStatusCode())
-			.contentType(ContentType.JSON)
-			.body("id", greaterThanOrEqualTo(1))
-			.body("name", is("Pomelo"))
-			.body("description", is("Exotic fruit"));
-	}
+    @Test
+    @Order(DEFAULT_ORDER+2)
+    public void getFruitFound() {
+        get("/fruits/Pomelo").then()
+                .statusCode(Status.OK.getStatusCode())
+                .contentType(ContentType.JSON)
+                .body("id", greaterThanOrEqualTo(1))
+                .body("name", is("Pomelo"))
+                .body("description", is("Exotic fruit"));
+    }
 
     @Test
     @Order(DEFAULT_ORDER+3)
