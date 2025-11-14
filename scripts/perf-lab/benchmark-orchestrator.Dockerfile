@@ -1,13 +1,10 @@
-FROM --platform=$TARGETPLATFORM registry.access.redhat.com/ubi9/ubi
+FROM registry.access.redhat.com/ubi9/ubi
 LABEL org.opencontainers.image.source="https://github.com/quarkusio/spring-quarkus-perf-comparison"
 
 USER root
 
 # Install system dependencies
 RUN dnf install -y --allowerasing gcc zlib-devel git procps-ng curl file bash unzip zip sudo
-
-# Install homebrew
-RUN curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
 
 # Add a new non-root user
 RUN useradd -r -u 1000 -g wheel -s /bin/bash benchmark
@@ -32,11 +29,15 @@ RUN curl -Ls https://sh.jbang.dev | bash -s - app setup
 RUN curl -s "https://get.sdkman.io" | bash && \
     source "$HOME/.sdkman/bin/sdkman-init.sh"
 
+
+# Install homebrew
+RUN curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
+
 # Configure homebrew
 ENV HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew \
-		HOMEBREW_CELLAR=/home/linuxbrew/.linuxbrew/Cellar \
-		HOMEBREW_REPOSITORY=/home/linuxbrew/.linuxbrew/Homebrew \
-		PATH=/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}
+	HOMEBREW_CELLAR=/home/linuxbrew/.linuxbrew/Cellar \
+	HOMEBREW_REPOSITORY=/home/linuxbrew/.linuxbrew/Homebrew \
+	PATH=/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}
 
 RUN	echo "eval \$(${HOMEBREW_PREFIX}/bin/brew shellenv)" >> ~/.bashrc
 
