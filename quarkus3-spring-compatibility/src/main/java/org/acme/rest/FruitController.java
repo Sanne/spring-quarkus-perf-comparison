@@ -27,6 +27,7 @@ public class FruitController {
 	}
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional
 	public List<Fruit> getAll() {
 		return this.fruitRepository.findAll();
 	}

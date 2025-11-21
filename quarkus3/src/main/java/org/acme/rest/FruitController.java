@@ -27,6 +27,7 @@ public class FruitController {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@Transactional
 	public List<Fruit> getAll() {
 		return this.fruitRepository.listAll();
 	}
