@@ -9,7 +9,8 @@ set -euo pipefail
 wait_for_8080() {
     echo "Waiting for port 8080..."
     for ((i=0; i<30; i++)); do
-        if (echo > /dev/tcp/localhost/8080) >/dev/null 2>&1; then
+        # Using 127.0.0.1 is safer than localhost on macOS to avoid IPv6 ::1 mismatch
+        if (echo > /dev/tcp/127.0.0.1/8080) >/dev/null 2>&1; then
             return 0
         fi
         sleep 1
